@@ -4,13 +4,8 @@
 
 https://github.com/coding-to-music/the-redis-marketplace-app-backend
 
-From / By Docusaurus
+From / By https://github.com/redis-developer/the-redis-marketplace-app-backend
 
-https://docusaurus.io/docs/installation#scaffold-project-website
-
-https://docusaurus.io/docs/api/misc/create-docusaurus
-
-https://dev.to/gaurishhs/deploying-docusaurus-to-cloudflare-pages-565g
 
 ## Environment variables:
 

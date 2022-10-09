@@ -31,39 +31,6 @@ Docusaurus is a commonly used static site generator. It is built on top of react
 
 Cloudflare Pages is a JAMstack platform for frontend developers to collaborate and deploy websites.
 
-## Creating the App
-
-Open up your shiny terminals and create a docusaurus app How to create: https://docusaurus.io/docs/installation#scaffold-project-website
-
-### Creating Docusaurus App
-
-Now, Once you've created change your directory to the project.
-
-Then, Run the start command.
-
-It will open up your browser to the development website: http://localhost:3000/
-
-<img src="images/classic-docusaurus-site.png" alt="classic-docusaurus-site" />
-
-Now, Your Docusaurus Website is ready, Let's deploy it over cloudflare pages.
-
-Change your docusaurus.config.js url field to https://.pages.dev or your custom domain.
-
-Unlike Vercel and netlify, Cloudflare pages doesn't support cli deployments yet (They might come sooner or later)
-
-So, You'll need to push all the code over github.
-
-```
-git init
-git add -A
-git commit -m "initial commit"
-git branch -M main
-git remote add origin https://github.com/apidev234/Docusaurus-Cf-Pages.git
-git push -u origin main
-```
-
-After Running these commands, If you check your github, You'll find the code there.
-
 Head to your cloudflare pages dashboard, Signup for pages if you haven't yet.
 
 Create an app and select your github repository.

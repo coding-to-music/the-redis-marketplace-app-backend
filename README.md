@@ -53,6 +53,8 @@ Redirecting www to apex domain https://developers.cloudflare.com/pages/how-to/ww
 
 ## Create a database
 
+https://docs.redis.com/latest/rc/rc-quickstart/
+
 Now that you have a subscription, you need to create a database.
 
 If you aren’t already at the Subscription details screen, sign into the Redis Cloud admin console and select your subscription from the subscription list.

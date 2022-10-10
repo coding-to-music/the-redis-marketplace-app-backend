@@ -6,7 +6,6 @@ https://github.com/coding-to-music/the-redis-marketplace-app-backend
 
 From / By https://github.com/redis-developer/the-redis-marketplace-app-backend
 
-
 ## Environment variables:
 
 ```java
@@ -52,13 +51,149 @@ Redirecting www to apex domain https://developers.cloudflare.com/pages/how-to/ww
 - staging: https://marketplace-backend-staging-a.herokuapp.com/
 - production: https://marketplace-backend-production.herokuapp.com/
 
+## Create a database
+
+Now that you have a subscription, you need to create a database.
+
+If you aren’t already at the Subscription details screen, sign into the Redis Cloud admin console and select your subscription from the subscription list.
+
+Select the New Database button.
+
+Use the New database to create a database.
+In the General section, enter a descriptive Database Name.
+
+- You have 40 characters
+- You can use letters, numbers, or a hyphen
+- The name must start with a letter and end with either a letter or a number
+- Spaces are not allowed
+
+Create new database.
+
+For this exercise, leave the remaining options at their default values. (To learn about them, see Create a fixed subscription.)
+
+Select the Activate database button near the upper, right corner of the page.
+
+You’re taken to the Configuration tab for your new database.
+
+Configuration tab showing details of your new database.
+In the upper corner, an icon shows the current status of the database. If the icon shows an orange clock, this means your database is still being created and its status is pending.
+
+Pending status icon Active status icon
+
+Once the database has been created, it becomes active and the status indicator switches to a green circle containing a checkmark.
+
+Admin console operations are asynchronous; they operate in the background. You can continue to use the admin console for other tasks, but pending resources aren’t available until they’re active.
+
+When your new database becomes active, you’re ready to connect to it.
+
+## Connect to a database
+
+At this point, you’re viewing the Configuration details for your new database.
+
+To connect to your database, you need the following info:
+
+- The hostname for your database
+- The port number
+- The database password
+
+These are displayed in the Configuration tab.
+
+In the General section, the Public endpoint setting shows the hostname for your database and the port number.
+
+The Security section contains your Default user password. By default, this is masked. Select the eye icon to show or hide the password.
+
+The Security section of the Configuration tab of the database details page.
+Once you have the connection details, you can connect in a variety of ways, including:
+
+### Using the redis-cli utility
+
+Using a connection client for your preferred programming language
+
+Here’s an example of each.
+
+## Use redis-cli (via Docker)
+
+The redis-cli utility is installed when you install Redis. It provides a command-line interface that lets you work with your database using core Redis commands.
+
+Docker provides a convenient way to run redis-cli without the full installation experience.
+
+Run the following commands to create a redis Docker container and connect to your database with redis-cli:
+
+Download the redis Docker image:
+
+```
+$ docker pull redis
+```
+
+Start a container created from the image:
+
+```
+$ docker run -d --name redis1 redis
+```
+
+Connect to a bash prompt running in the container:
+
+```
+$ docker exec -it redis1 bash
+```
+
+Connect to your database with redis-cli:
+
+```
+# redis-cli -h <host> -p <port> -a <password>
+```
+
+Replace <host>, <port>, and <password> with the details copied earlier from the View Database screen.
+
+After you connect to your database, try these basic Redis commands:
+
+```
+xxx:yyy> ping
+PONG
+xxx:yyy> set hello world
+OK
+xxx:yyy> get hello
+"world"
+```
+
+## Use code (Python)
+
+Different programming languages use different clients to interact with Redis databases.
+
+Here’s how to connect to your database using the redis-py library for Python.
+
+If you don’t already have the client installed:
+
+```
+sudo pip install redis
+```
+
+The specific syntax varies according to the client:
+
+```
+import redis
+r = redis.Redis(host='<endpoint>', port='<port>',
+                password='<password>')
+r.set('hello', 'world')
+print(r.get('hello'))
+```
+
+Now, run the code:
+
+```
+$ python example_redis.py
+```
+
+```
+world
+```
+
 ## Development
 
 1. `npm ci`
 2. `cp .env.example .env` values explained at [Project Secrets](#project-secrets)git
-3.  Connect to a redis instance by setting `REDIS_CONNECTION_STRING` to a valid connection string. (Optionally `docker-compose up -d --build` can be used to create a lcoal instance. In order to have a local redis image running. The `--build` flag triggers scripts in the docker file to insert seed data and configure indexing for the redis module.)
+3. Connect to a redis instance by setting `REDIS_CONNECTION_STRING` to a valid connection string. (Optionally `docker-compose up -d --build` can be used to create a lcoal instance. In order to have a local redis image running. The `--build` flag triggers scripts in the docker file to insert seed data and configure indexing for the redis module.)
 4. `npm run dev`
-
 
 To Deploy to Heroku after adding changes
 
@@ -74,9 +209,8 @@ To deploy to production on Heroku promote the staging app: https://devcenter.her
 Go to the pipeline dashboard: https://dashboard.heroku.com/pipelines/2e2b10cb-20ff-4c34-ad0a-9f58f3dfd600.
 
 If there are changes to be deployed to production a `Promote to production` button will be visible on the staging app. Pushing it will copy the build to production.
- 
-![image](https://user-images.githubusercontent.com/6561205/117830410-e3565080-b273-11eb-84ad-b82134b0972a.png)
 
+![image](https://user-images.githubusercontent.com/6561205/117830410-e3565080-b273-11eb-84ad-b82134b0972a.png)
 
 If test are breaking the db can be reset by running `docker-compose down` followed by `docker-compose up -d`.
 
@@ -87,7 +221,6 @@ If an needs to be reverted to a previose commit a specific build can be selected
 https://dashboard.heroku.com/apps/marketplace-backend-production/activity
 
 ![image](https://user-images.githubusercontent.com/6561205/117831848-44caef00-b275-11eb-9e74-4385562fcde9.png)
-
 
 ## CI
 
@@ -115,17 +248,16 @@ https://dashboard.heroku.com/apps/marketplace-backend-production/settings
 
 ![image](https://user-images.githubusercontent.com/6561205/117833455-a63f8d80-b276-11eb-96e7-df88cb64f1cd.png)
 
-
 #### Project secrets
 
 These secrets need to be set on the project level for the job to run.
 
-  - DOCUSAURUS_REPOSITORY: A repository with a docusaurus project
-  - PERSONAL_ACCESS_TOKEN_GITHUB: A GitHub token to read and write to repositories.
-  - PORT: A port to run the app. (`3000`)
-  - REDIS_CONNECTION_STRING: A redis connection to a db where the projects are to be imported.
-  - GITHUB_GRAPHQL_URL: https://api.github.com/graphql
-  - CRAWLER_LOGIN_NAME: Login name of the organisation to crawl.
+- DOCUSAURUS_REPOSITORY: A repository with a docusaurus project
+- PERSONAL_ACCESS_TOKEN_GITHUB: A GitHub token to read and write to repositories.
+- PORT: A port to run the app. (`3000`)
+- REDIS_CONNECTION_STRING: A redis connection to a db where the projects are to be imported.
+- GITHUB_GRAPHQL_URL: https://api.github.com/graphql
+- CRAWLER_LOGIN_NAME: Login name of the organisation to crawl.
 
 ### Trigger crawler on GitHub
 
@@ -134,7 +266,6 @@ The workflow can be manually triggered from the `Action` tab on the GitHub repos
 https://github.com/redis-developer/the-redis-marketplace-app-backend/actions/workflows/main.yml
 
 ![image](https://user-images.githubusercontent.com/6561205/117832289-a55a2c00-b275-11eb-8b61-32923fc161ac.png)
-
 
 ### Trigger crawler with `POST` request
 
@@ -150,8 +281,6 @@ Variables:
 
 - `username`: The user the personal access token belogns to
 - `personal_access_token`: A GitHub token
-
-
 
 ## OpenAPI documentation
 

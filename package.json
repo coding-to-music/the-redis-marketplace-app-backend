@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
+    "oldstart": "node index",
+    "start": "nodemon index",
     "dev": "nodemon index",
     "test": "mocha --config .unit.mocharc",
     "test-e2e": "mocha --config .e2e.mocharc",

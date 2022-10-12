@@ -2,6 +2,8 @@
 
 # 🚀 Contains backend for the Redis Marketplace app 🚀
 
+https://the-redis-marketplace-app-backend.vercel.app/
+
 https://github.com/coding-to-music/the-redis-marketplace-app-backend
 
 From / By https://github.com/redis-developer/the-redis-marketplace-app-backend

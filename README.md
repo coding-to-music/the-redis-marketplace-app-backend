@@ -265,6 +265,7 @@ https://dashboard.heroku.com/apps/marketplace-backend-production/settings
 
 These secrets need to be set on the project level for the job to run.
 
+- REDIS_CONNECTION_STRING=//default:password@redis-cloud-connection-string:port
 - DOCUSAURUS_REPOSITORY: A repository with a docusaurus project
 - PERSONAL_ACCESS_TOKEN_GITHUB: A GitHub token to read and write to repositories.
 - PORT: A port to run the app. (`3000`)

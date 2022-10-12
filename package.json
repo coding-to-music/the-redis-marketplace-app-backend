@@ -9,7 +9,7 @@
     "dev": "nodemon index",
     "test": "mocha --config .unit.mocharc",
     "test-e2e": "mocha --config .e2e.mocharc",
-    "lint": "eslint .",
+    "lint": "eslint . ",
     "deploy": "git add . && git commit -m Build && git push",
     "crawler": "node -r dotenv/config ./src/scripts/crawler.js"
   },
